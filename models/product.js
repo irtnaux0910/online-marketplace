@@ -1,10 +1,11 @@
-const Product = require('../models/product');
+const mongoose = require('mongoose');
 
-exports.getProducts = async (req, res) => {
-  try {
-    const products = await Product.find();
-    res.json(products);
-  } catch (err) {
-    res.status(500).json({ message: err.message });
-  }
-};
+const productSchema = new mongoose.Schema({
+  name: { type: String, required: true },
+  description: { type: String, required: true },
+  price: { type: Number, required: true },
+  quantity: { type: Number, required: true },
+  category: { type: String, required: true }
+});
+
+module.exports = mongoose.model('Product', productSchema,'products');
